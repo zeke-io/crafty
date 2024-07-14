@@ -16,6 +16,9 @@ async fn main() -> anyhow::Result<()> {
     }
     pretty_env_logger::init_custom_env("CRAFTY_LOG");
 
+    // Load .env files
+    dotenv_flow::dotenv_flow().ok();
+
     let profile_name: Option<String> = match (cli.profile, &cli.command) {
         // No matter the command, set the profile if provided
         (Some(profile), _) => Some(profile),

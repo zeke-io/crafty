@@ -11,4 +11,5 @@ log = "0.4"
 project = { path = "crates/project" }
 serde = { version = "1.0.197", features = ["derive"] }
 templater = { path = "crates/templater" }
+tokio = { version = "1.38.0", features = ["full"] }
 url = "2.4.0"

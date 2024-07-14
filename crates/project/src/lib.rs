@@ -56,7 +56,6 @@ impl Project {
 
 pub fn load_project<P: AsRef<Path>>(path: P) -> anyhow::Result<Project> {
     let path = path.as_ref();
-    dotenv_flow::dotenv_flow().ok();
 
     let crafty_file = utils::find_up_file(path, "crafty.yml")
         .context("Could not find \"crafty.yml\" file, please create one")?;
