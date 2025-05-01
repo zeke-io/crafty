@@ -16,9 +16,8 @@ pub struct Cli {
 #[derive(Subcommand)]
 pub enum Commands {
     /// Initialize a project with a basic template
-    New {
-        path: PathBuf,
-    },
+    New { path: PathBuf },
+    /// Initialize project in current directory
     Init,
     /// Install the files and plugins for a project
     Install {
