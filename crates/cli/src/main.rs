@@ -11,10 +11,10 @@ async fn main() -> anyhow::Result<()> {
     let current_directory = std::env::current_dir()?;
 
     // Initialize logger
-    if std::env::var_os("CRAFTY_LOG").is_none() {
-        unsafe { std::env::set_var("CRAFTY_LOG", "info") }
-    }
-    pretty_env_logger::init_custom_env("CRAFTY_LOG");
+    let level = std::env::var("CRAFTY_LOG").unwrap_or("INFO".into());
+    pretty_env_logger::formatted_builder()
+        .parse_filters(&level)
+        .init();
 
     // Load .env files
     dotenv_flow::dotenv_flow().ok();
