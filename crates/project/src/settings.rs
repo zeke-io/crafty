@@ -1,8 +1,14 @@
 use anyhow::Context;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
+
+#[derive(Serialize, Deserialize, Default, Debug, Clone)]
+#[serde(rename_all = "kebab-case")]
+pub struct SourceFile {
+    pub path: PathBuf,
+    pub target: PathBuf,
+}
 
 #[derive(Serialize, Deserialize, Default, Debug, Clone)]
 #[serde(rename_all = "kebab-case")]
@@ -12,7 +18,7 @@ pub struct ProjectSettings {
     #[serde(default)]
     pub server_args: Vec<String>,
     #[serde(default)]
-    pub files: HashMap<String, String>,
+    pub files: Vec<SourceFile>,
 }
 
 impl ProjectSettings {

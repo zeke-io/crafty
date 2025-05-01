@@ -5,7 +5,7 @@ use std::{env, fs};
 use crate::dependencies::Dependency;
 use crate::manifests::{Manifest, VersionManifest};
 use crate::settings::ProjectSettings;
-use anyhow::{anyhow, Context};
+use anyhow::{Context, anyhow};
 use common::utils;
 use serde::{Deserialize, Serialize};
 use walkdir::WalkDir;
@@ -137,9 +137,9 @@ pub fn process_files<P: AsRef<Path>>(
 
     let server_directory = server_directory.as_ref();
 
-    for (target_path, source_path) in &settings.files {
-        let source_path = root_directory.join(source_path);
-        let target_path = server_directory.join(target_path);
+    for src_file in &settings.files {
+        let source_path = root_directory.join(&src_file.path);
+        let target_path = server_directory.join(&src_file.target);
 
         if !source_path.exists() {
             return Err(anyhow!(
