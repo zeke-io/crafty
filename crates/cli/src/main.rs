@@ -12,7 +12,7 @@ async fn main() -> anyhow::Result<()> {
 
     // Initialize logger
     if std::env::var_os("CRAFTY_LOG").is_none() {
-        std::env::set_var("CRAFTY_LOG", "info")
+        unsafe { std::env::set_var("CRAFTY_LOG", "info") }
     }
     pretty_env_logger::init_custom_env("CRAFTY_LOG");
 
@@ -30,8 +30,10 @@ async fn main() -> anyhow::Result<()> {
 
     if let Some(profile_name) = &profile_name {
         log::info!("Using profile: {}", profile_name);
-        std::env::set_var("DOTENV_ENV", profile_name);
-        std::env::set_var("CRAFTY_PROFILE", profile_name);
+        unsafe {
+            std::env::set_var("DOTENV_ENV", profile_name);
+            std::env::set_var("CRAFTY_PROFILE", profile_name);
+        }
     }
 
     match cli.command {
